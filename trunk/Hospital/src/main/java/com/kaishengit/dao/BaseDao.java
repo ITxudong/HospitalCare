@@ -109,12 +109,13 @@ public class BaseDao<T,PK extends Serializable> {
 		return result;
 	}
 
-	private void buildCondition(Criteria cri, List<PropertyFilter> filterList) {
+	public void buildCondition(Criteria cri, List<PropertyFilter> filterList) {
 		for(PropertyFilter filter : filterList) {
 			String  type = filter.getType();
 			String propertyName = filter.getPropertyName();
 			Object value = filter.getValue();
-			
+			System.out.println("propertyname:"+propertyName);
+			System.out.println("value:"+value);
 			if(propertyName.contains("_OR_")) {
 				String[] parNames = propertyName.split("_OR_");
 				//Disjunction add进去的语句之间的关系为or
@@ -144,6 +145,9 @@ public class BaseDao<T,PK extends Serializable> {
 			return Restrictions.lt(propertyName, value);
 		} else if(type.equalsIgnoreCase("le")) {
 			return Restrictions.le(propertyName, value);
+		} else if(type.equalsIgnoreCase("bt")) {
+			String[] t = value.toString().split("-");
+			return Restrictions.between(propertyName, t[0], t[1]);
 		}
 		return null;
 	}

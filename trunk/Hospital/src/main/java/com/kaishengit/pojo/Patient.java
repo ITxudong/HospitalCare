@@ -27,6 +27,7 @@ public class Patient extends IdEntity{
 	@JoinColumn(name="insuranceid")
 	private Insurance insurance;
 	
+	
 	public String getName() {
 		return name;
 	}

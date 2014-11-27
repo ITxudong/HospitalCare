@@ -28,6 +28,7 @@ public class JsonAction extends BaseAction{
 	private Patient patient;
 	private List<Patient> patients;
 	private String name;
+	private String query;
 	
 	//patient 基本信息说
 	@Action(value="visitJson",results={
@@ -38,18 +39,19 @@ public class JsonAction extends BaseAction{
 		
 		name = getHttpRequest().getParameter("patientName");
 		patient = patientService.findByName(name);
-		
-		try {
-			PrintWriter out = getHttpResponse().getWriter();
-			Map<String ,Object> result = new HashMap<String ,Object>();
-			result.put("state", "success");
-			result.put("patient", patient);
-			
-			out.print(new Gson().toJson(result));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(patient != null) {
+			try {
+				PrintWriter out = getHttpResponse().getWriter();
+				Map<String ,Object> result = new HashMap<String ,Object>();
+				result.put("state", "success");
+				result.put("patient", patient);
+				
+				out.print(new Gson().toJson(result));
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return NONE;
 	}
@@ -61,8 +63,7 @@ public class JsonAction extends BaseAction{
 	public String patientsJson() {
 		getHttpResponse().setContentType("application/json;charset=UTF-8");
 		
-		List<Patient> patients = patientService.findAll();
-		
+		List<Patient> patients = patientService.findAllLike(query);
 		
 		try {
 			PrintWriter out = getHttpResponse().getWriter();
@@ -111,6 +112,14 @@ public class JsonAction extends BaseAction{
 
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 	
 	

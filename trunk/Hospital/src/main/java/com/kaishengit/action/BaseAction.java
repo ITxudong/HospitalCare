@@ -21,6 +21,12 @@ public class BaseAction extends ActionSupport{
 		return ServletActionContext.getResponse();
 	}
 	
+	public void upload() {
+		
+		
+		
+		
+	}
 	
 	
 }
