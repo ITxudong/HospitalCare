@@ -76,7 +76,7 @@ public class AccountAction extends BaseAction{
 	})
 	public String updateAccount() {
 		
-		accountService.save(account);
+		accountService.update(account);
 		return SUCCESS;
 	}
 	

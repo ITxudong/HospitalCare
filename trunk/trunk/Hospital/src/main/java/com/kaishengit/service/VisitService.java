@@ -8,7 +8,9 @@ import javax.inject.Named;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kaishengit.dao.IllintroDao;
 import com.kaishengit.dao.VisitDao;
+import com.kaishengit.pojo.Illintro;
 import com.kaishengit.pojo.Visit;
 import com.kaishengit.util.PropertyFilter;
 
@@ -18,15 +20,18 @@ public class VisitService {
 
 	@Inject
 	private VisitDao visitDao;
-
+	@Inject
+	private IllintroDao illintroDao;
+	
 	public List<Visit> search(List<PropertyFilter> filterList) {
 		return visitDao.findAll(filterList);
 	}
-
+	
 	public void save(Visit visit) {
 		String createtime = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
 		visit.setCreatetime(createtime);
-	    visitDao.save(visit);
+	    
+		visitDao.save(visit);
 	}
 
 	public List<Visit> findAll(String id) {
@@ -36,5 +41,35 @@ public class VisitService {
 	public Visit findById(String vid) {
 		return visitDao.findById(vid);
 	}
-	
+
+	public void save(Illintro illintro, Visit visit, String id) {
+		String createtime = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
+		visit.setCreatetime(createtime);
+		
+		Illintro ill = illintroDao.findById(id);
+		
+		ill.setRechecktime(illintro.getRechecktime());
+		
+		illintroDao.save(ill);
+		
+		visit.setCreatetime(createtime);
+		visit.setIllintro(ill);
+		visitDao.save(visit);
+	}
+
+	public void save(Illintro illintro, Visit visit) {
+		
+		String createtime = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
+		visit.setCreatetime(createtime);
+		
+		illintro.setCreatetime(createtime);
+		illintro.setState("дкея");
+		illintroDao.save(illintro);
+		
+		visit.setCreatetime(createtime);
+		visit.setIllintro(illintro);
+		visitDao.save(visit);
+		
+	}
+
 }

@@ -40,18 +40,20 @@ public class AccountService {
 	}
 
 
-	public void save(Account account) {
+	public void update(Account account) {
 		Account acc = findById(account.getId());
 		acc.setRealName(account.getRealName());
 		acc.setAccountName(account.getAccountName());
 		acc.setPwd(account.getPwd());
 		acc.setTel(account.getTel());
 		acc.setType(account.getType());
+		acc.setEnable(account.getEnable());
 		accountDao.save(acc);
 	}
 
 
-	public void update(Account account) {
+	public void save(Account account) {
+		account.setEnable(true);
 		accountDao.save(account);
 	}
 

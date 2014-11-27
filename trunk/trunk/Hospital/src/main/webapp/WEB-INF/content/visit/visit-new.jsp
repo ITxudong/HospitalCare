@@ -85,27 +85,27 @@
           </div>
           <div class="box-body form">
             <form action="/visit/saveVisit.action" method="post">
-              <input type="hidden" id="vid" name="visit.patient.id" value="">
+              <input type="hidden" id="vid" name="illintro.patient.id" value="">
               <label>科室</label>
-              <select name="visit.dept.id" id="">
+              <select name="illintro.dept.id" id="">
               	<option></option>
               	<c:forEach items="${depts }" var="de">
               		<option value="${de.id }">${de.name }</option>
               	</c:forEach>
               </select>
               <label>病种</label>
-              <select name="visit.disease.id" id="">
+              <select name="illintro.disease.id" id="">
               	<option></option>
               	<c:forEach items="${diseases }" var="d">
               		<option value="${d.id }">${d.name }</option>
               	</c:forEach>
               </select>
               <label>初步诊断</label>
-              <input type="text" class="span12" name="visit.preresult">
+              <input type="text" class="span12" name="illintro.preresult">
               <label>主要症状</label>
-              <textarea  class="editor1 " name="visit.syoptom"></textarea>
+              <textarea  class="editor1 " name="visit.symptom"></textarea>
               <label>相关病史</label>
-              <textarea  class="editor2" name="visit.allergic"></textarea>
+              <textarea  class="editor2" name="illintro.allergic"></textarea>
               <label>阳性体征</label>
               <textarea  class="editor3" name="visit.yxcharacter"></textarea>
               <label>检查结果</label>
@@ -113,9 +113,9 @@
               <label>治疗方案</label>
               <textarea  class="editor5" name="visit.curemethod"></textarea>
               <label>管床医生</label>
-              <input type="text" name="visit.doctor">
+              <input type="text" name="illintro.doctor">
               <label>下次复诊时间</label>
-              <input type="text" id="nextTime" name="rechecktime">
+              <input type="text" id="nextTime" name="illintro.rechecktime">
               <label>影像资料</label>
               <div id="picker">选择资料</div>
               <ul id="fileList" class="thumbnails">
@@ -176,7 +176,6 @@
     	//lookup:['张三','王力宏','刘梅','李丛'], 
         serviceUrl:"/patientsJson.action",
         onSelect:function(suggestion){
-          var name = $("#patientName").val();
   		  $.ajax({
   			  url:"/visitJson.action",
   			  type:"get",
@@ -206,7 +205,7 @@
      
       var uploader = WebUploader.create({
           swf: 'http://cdn.staticfile.org/webuploader/0.1.1/Uploader.swf',
-          server: 'http://webuploader.duapp.com/server/fileupload.php',
+          server: '/visit/upload.action',
           pick: '#picker',
           // 只允许选择图片文件。
           accept: {

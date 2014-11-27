@@ -26,6 +26,7 @@ public class PatientService {
 	public void save(Patient patient) {
 		String createtime = DateTime.now().toString("yyyy-MM-dd");
 		patient.setCreatetime(createtime);
+		patient.setState("дкея");
 		patientDao.save(patient);
 	}
 
@@ -48,6 +49,11 @@ public class PatientService {
 	public Patient findByName(String name) {
 		return patientDao.findEntityByProperty("name", name);
 	}
+
+	public List<Patient> findAllLike(String query) {
+		return patientDao.findAllLike("name", query);
+	}
+
 
 
 }

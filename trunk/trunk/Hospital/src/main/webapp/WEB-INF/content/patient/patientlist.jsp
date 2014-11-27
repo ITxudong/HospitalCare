@@ -71,7 +71,7 @@
                   <td>${li.tel }</td>
                   <td>${li.insurance.name }</td>
                   <td>${li.address }</td>
-                  <td>在诊</td>
+                  <td>${li.state }</td>
                   <td>${li.createtime }</td>
                 </tr>
                 </c:forEach>

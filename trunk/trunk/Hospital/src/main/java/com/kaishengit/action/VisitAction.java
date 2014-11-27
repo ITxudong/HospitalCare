@@ -10,10 +10,12 @@ import org.apache.struts2.convention.annotation.Result;
 
 import com.kaishengit.pojo.Dept;
 import com.kaishengit.pojo.Disease;
+import com.kaishengit.pojo.Illintro;
 import com.kaishengit.pojo.Visit;
 import com.kaishengit.pojo.Patient;
 import com.kaishengit.service.DeptService;
 import com.kaishengit.service.DiseaseService;
+import com.kaishengit.service.IllintroService;
 import com.kaishengit.service.PatientService;
 import com.kaishengit.service.VisitService;
 import com.kaishengit.util.PropertyFilter;
@@ -31,22 +33,25 @@ public class VisitAction extends BaseAction{
 	VisitService visitService;
 	@Inject
 	DiseaseService diseaseService;
+	@Inject
+	IllintroService illintroService;
 	
 	private List<Patient> patients;
 	private List<Dept> depts;
 	private List<Visit> visits;
 	private List<Disease> diseases;
+	private List<Illintro> illintros;
 	
 	private Visit visit;
-	private String pid;
-	private String vid; 
+	private Illintro illintro;
+	private String id;
 	
 	@Action(value="visitlist",results={
 			@Result(name="success",location="/WEB-INF/content/visit/visit-list.jsp")
 	})
 	public String visitlist() {
 		List<PropertyFilter> filterList = PropertyFilter.builderPropertyFilter(getHttpRequest());
-		visits = visitService.search(filterList);
+		illintros = illintroService.search(filterList);
 		return SUCCESS;
 	}
 	
@@ -63,7 +68,7 @@ public class VisitAction extends BaseAction{
 			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitlist"})
 	})
 	public String saveVisit() {
-		visitService.save(visit);
+		visitService.save(illintro,visit);
 		return SUCCESS;
 	}
 	
@@ -71,10 +76,45 @@ public class VisitAction extends BaseAction{
 			@Result(name="success",location="/WEB-INF/content/visit/visit-detail.jsp")
 	})
 	public String visitDetail() {
-		visits = visitService.findAll(pid);
-		visit = visitService.findById(vid);
+		illintro = illintroService.findById(id);
 		return SUCCESS;
 	}
+	
+	@Action(value="newReply",results={
+			@Result(name="success",location="/WEB-INF/content/visit/new-reply.jsp")
+	})
+	public String newReply() {
+		illintro = illintroService.findById(id);
+		return SUCCESS;
+	}
+	
+	@Action(value="saveReply",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitDetail","id","${id}"})
+	})
+	public String saveReply() {
+		visitService.save(illintro,visit,id);
+		return SUCCESS;
+	}
+	
+	//illintro 病情简介相关操作（修改，删除）
+	@Action(value="updateIllintro",results={
+			@Result(name="success",location="/WEB-INF/content/visit/illintro-update.jsp")
+	})
+	public String updateIllintro() {
+		depts = deptService.findAllDept();
+		diseases = diseaseService.findAll();
+		illintro = illintroService.findById(id);
+		return SUCCESS;
+	}
+	
+	@Action(value="saveIllintro",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitDetail","id","${id}"})
+	})
+	public String saveIllintro() {
+		illintroService.update(illintro);
+		return SUCCESS;
+	}
+	
 	
 	//get set
 	public List<Patient> getPatients() {
@@ -117,22 +157,31 @@ public class VisitAction extends BaseAction{
 		this.visit = visit;
 	}
 
-	public String getPid() {
-		return pid;
+	public Illintro getIllintro() {
+		return illintro;
 	}
 
-	public void setPid(String pid) {
-		this.pid = pid;
+	public List<Illintro> getIllintros() {
+		return illintros;
 	}
 
-	public String getVid() {
-		return vid;
+	public void setIllintros(List<Illintro> illintros) {
+		this.illintros = illintros;
 	}
 
-	public void setVid(String vid) {
-		this.vid = vid;
+	public void setIllintro(Illintro illintro) {
+		this.illintro = illintro;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 	
 	
 	
