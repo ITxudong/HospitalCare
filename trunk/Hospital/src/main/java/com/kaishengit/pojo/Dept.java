@@ -15,7 +15,7 @@ public class Dept extends IdEntity{
 	private String principal;
 	@OneToMany(mappedBy="dept")
 	@OrderBy("id desc")
-	private List<Disease> disease;
+	private List<Disease> diseases;
 	
 	public String getName() {
 		return name;
@@ -32,5 +32,14 @@ public class Dept extends IdEntity{
 	public void setPrincipal(String principal) {
 		this.principal = principal;
 	}
+
+	public List<Disease> getDiseases() {
+		return diseases;
+	}
+
+	public void setDiseases(List<Disease> diseases) {
+		this.diseases = diseases;
+	}
+	
 	
 }

@@ -27,7 +27,7 @@
           </div>
           <div class="box-body search-box">
             <form action="" class="form-search">
-              <input type="text" id="rangepicker" placeholder="就诊时间" name="q_S_BT_rechecktime">
+              <input type="text" id="rangepicker" placeholder="就诊时间" name="q_S_BT_createtime" value="${param.q_S_BT_createtime }">
               <button class="button button-flat-primary button-pill"><i class="fa fa-search"></i> 搜索</button>
             </form>
           </div>

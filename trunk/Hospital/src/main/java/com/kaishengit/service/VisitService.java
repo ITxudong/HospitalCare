@@ -9,8 +9,10 @@ import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kaishengit.dao.IllintroDao;
+import com.kaishengit.dao.ImgsDao;
 import com.kaishengit.dao.VisitDao;
 import com.kaishengit.pojo.Illintro;
+import com.kaishengit.pojo.Imgs;
 import com.kaishengit.pojo.Visit;
 import com.kaishengit.util.PropertyFilter;
 
@@ -22,6 +24,8 @@ public class VisitService {
 	private VisitDao visitDao;
 	@Inject
 	private IllintroDao illintroDao;
+	@Inject
+	private ImgsDao imgsDao;
 	
 	public List<Visit> search(List<PropertyFilter> filterList) {
 		return visitDao.findAll(filterList);
@@ -59,7 +63,7 @@ public class VisitService {
 
 	public void save(Illintro illintro, Visit visit) {
 		
-		String createtime = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
+		String createtime = DateTime.now().toString("yyyy-MM-dd");
 		visit.setCreatetime(createtime);
 		
 		illintro.setCreatetime(createtime);
@@ -70,6 +74,19 @@ public class VisitService {
 		visit.setIllintro(illintro);
 		visitDao.save(visit);
 		
+	}
+
+	public void save(Visit visit, Imgs imgs) {
+		
+		String picname = imgs.getPicname();
+		String[] img = picname.split(", ");
+		
+		for (int i = 0; i < img.length; i++) {
+			Imgs im = new Imgs();
+			im.setPicname(img[i]);
+			im.setVisit(visit);
+			imgsDao.save(im);
+		}
 	}
 
 }

@@ -8,15 +8,11 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="/statics/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/statics/js/simditor/styles/font-awesome.css">
+  	<link rel="stylesheet" href="/statics/js/simditor/styles/simditor.css">
   	<link rel="stylesheet" href="/statics/js/select2/select2.css">
-  	<link rel="stylesheet" href="/statics/js/select2/select2-bootstrap.css">
 	<link rel="stylesheet" href="/statics/css/style.css">
 </head>
 <body>
-	
-	<jsp:include page="../include/side.jsp">
-		<jsp:param value="disease" name="menu"/>
-	</jsp:include>
 	
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -26,47 +22,43 @@
           <div class="box-header">
             <span class="title">
               <i class="fa fa-plus"></i>
-              <a href="/disease/diseaseSet.action"> 病种列表</a>  /  修改疾病
+              <a href="/home.action?id=${param.id }"> 主页</a>  /  发布公告
             </span>
           </div>
           <div class="box-body form">
-            <form action="/disease/updateDisease.action" method="post">
-              <input type="hidden" name="disease.id" value="${disease.id }">
-              <label>疾病名称</label>
-              <input type="text" name="disease.name" value="${disease.name }">
-              <label>所属科室</label>
-              <select id="ks" name="disease.dept.id">
-                <option ></option>
-                <c:forEach items="${list }" var="d">
-                	<option value="${d.id }" ${disease.dept.id == d.id ? 'selected' : ''}>${d.name }</option>
-                </c:forEach>
-              </select>
+            <form action="/announce/pubAnnounce.action?id=${param.id }" method="post">
+              <label>公告标题</label>
+              <input type="text" name="announce.title" id="">
+              <label>公告内容</label>
+              <textarea  class="editor" style="height:50px" name="announce.content"></textarea>
               <div class="form-actions">
-                <button class="button button-flat-action button-pill">修改</button>
+                <button class="button button-flat-action button-pill">发布</button>
               </div>
             </form>
           </div>
         </div>
-		
+
 
       </div>
 			
 		</div>
 	</div>
-
-		
-
+	
   <script src="/statics/js/jquery-1.9.1-min.js"></script>
   <script src="/statics/js/bootstrap.min.js"></script>
+  <script src="/statics/js/simditor/scripts/js/simditor-all.min.js"></script>
   <script src="/statics/js/select2/select2.min.js"></script>
   <script>
     $(function(){
-      $("#ks").select2({
-        placeholder: "请选择科室",
-        width:'220px'
-      });
+
+	      var editor = new Simditor({
+	        toolbar:['title','bold','italic','underline','strikethrough','ol','ul','blockquote','table','link','hr','indent','outdent'],
+	        textarea: $('.editor')
+	      });
+	      
     });
   </script>
+	
 	
 </body>
 </html>

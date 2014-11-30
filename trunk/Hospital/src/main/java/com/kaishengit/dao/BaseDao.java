@@ -146,8 +146,8 @@ public class BaseDao<T,PK extends Serializable> {
 		} else if(type.equalsIgnoreCase("le")) {
 			return Restrictions.le(propertyName, value);
 		} else if(type.equalsIgnoreCase("bt")) {
-			String[] t = value.toString().split("-");
-			return Restrictions.between(propertyName, t[0], t[1]);
+			String[] t = value.toString().split(" - ");
+			return Restrictions.between(propertyName, t[0].replace("/", "-"), t[1].replace("/", "-"));
 		}
 		return null;
 	}

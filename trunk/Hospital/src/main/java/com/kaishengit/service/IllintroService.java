@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kaishengit.dao.IllintroDao;
+import com.kaishengit.pojo.Disease;
 import com.kaishengit.pojo.Illintro;
 import com.kaishengit.util.PropertyFilter;
 
@@ -20,7 +21,7 @@ public class IllintroService {
 	private IllintroDao illintroDao;
 	
 	public void save(Illintro illintro) {
-		String createtime = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
+		String createtime = DateTime.now().toString("yyyy-MM-dd");
 		illintro.setCreatetime(createtime);
 		illintro.setState("дкея");
 		illintroDao.save(illintro);
@@ -44,5 +45,9 @@ public class IllintroService {
 		ill.setRechecktime(illintro.getRechecktime());
 		illintroDao.save(ill);
 	}
-	
+
+	public Long count(List<PropertyFilter> filterList, Disease dis) {
+		return illintroDao.countDisease(filterList,dis.getId());
+	}
+
 }
