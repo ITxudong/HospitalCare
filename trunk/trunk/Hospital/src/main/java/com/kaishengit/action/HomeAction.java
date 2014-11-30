@@ -1,5 +1,7 @@
 package com.kaishengit.action;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +10,9 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 
 import com.kaishengit.pojo.Account;
+import com.kaishengit.pojo.Announce;
 import com.kaishengit.service.AccountService;
+import com.kaishengit.service.AnnounceService;
 
 @Namespace("/")
 public class HomeAction extends BaseAction{
@@ -17,11 +21,20 @@ public class HomeAction extends BaseAction{
 
 	@Inject
 	private AccountService accountService;
+	@Inject
+	private AnnounceService announceService;
+	
+	private List<Announce> announces;
 	
 	private Account account;
 	
+	private String id;
+	private Boolean isa;
+	
 	@Action("home")
 	public String execute() {
+		isa = isAdmin();
+		announces = announceService.findAll();
 		return SUCCESS;
 	}
 	
@@ -31,7 +44,7 @@ public class HomeAction extends BaseAction{
 	}
 	
 	@Action(value="login",results={
-			@Result(name="success",type="redirectAction",params={"namespace","/","actionName","home"}),
+			@Result(name="success",type="redirectAction",params={"namespace","/","actionName","home","id","${id}"}),
 			@Result(name="input",location="/WEB-INF/content/index-success.jsp")
 	})
 	public String login() {
@@ -40,7 +53,7 @@ public class HomeAction extends BaseAction{
 		if(account != null) {
 			HttpSession session = getHttpRequest().getSession();
 			session.setAttribute("currAccount", account);
-			
+			id = account.getId();
 			return SUCCESS;
 		} else {
 			return INPUT;
@@ -56,4 +69,32 @@ public class HomeAction extends BaseAction{
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public List<Announce> getAnnounces() {
+		return announces;
+	}
+
+	public void setAnnounces(List<Announce> announces) {
+		this.announces = announces;
+	}
+
+	public Boolean getIsa() {
+		return isa;
+	}
+
+	public void setIsa(Boolean isa) {
+		this.isa = isa;
+	}
+
+	
+	
+	
 }

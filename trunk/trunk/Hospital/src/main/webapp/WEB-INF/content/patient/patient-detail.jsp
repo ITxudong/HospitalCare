@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -89,15 +90,17 @@
                 </tr>
               </thead>
               <tbody>
+                <c:forEach items="${patient.illintros }" var="ill">
                 <tr>
-                  <td>2014-07-02</td>
-                  <td>内科</td>
-                  <td>流感</td>
-                  <td>流行性感冒</td>
+                  <td>${ill.createtime }</td>
+                  <td>${ill.dept.name }</td>
+                  <td>${ill.disease.name }</td>
+                  <td>${ill.preresult }</td>
                   <td>
-                    <a href="">详情</a>
+                    <a href="/visit/visitDetail.action?id=${ill.id }">详情</a>
                   </td>
                 </tr>
+                </c:forEach>
               </tbody>
             </table>
 

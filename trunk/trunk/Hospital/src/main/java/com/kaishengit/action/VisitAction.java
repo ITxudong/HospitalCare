@@ -1,9 +1,13 @@
 package com.kaishengit.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -11,6 +15,7 @@ import org.apache.struts2.convention.annotation.Result;
 import com.kaishengit.pojo.Dept;
 import com.kaishengit.pojo.Disease;
 import com.kaishengit.pojo.Illintro;
+import com.kaishengit.pojo.Imgs;
 import com.kaishengit.pojo.Visit;
 import com.kaishengit.pojo.Patient;
 import com.kaishengit.service.DeptService;
@@ -44,7 +49,11 @@ public class VisitAction extends BaseAction{
 	
 	private Visit visit;
 	private Illintro illintro;
+	private Imgs imgs;
 	private String id;
+	private File file; 
+	private String fileFileName;
+	private String fileContentType;
 	
 	@Action(value="visitlist",results={
 			@Result(name="success",location="/WEB-INF/content/visit/visit-list.jsp")
@@ -68,7 +77,10 @@ public class VisitAction extends BaseAction{
 			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitlist"})
 	})
 	public String saveVisit() {
+		
 		visitService.save(illintro,visit);
+		visitService.save(visit,imgs);
+		
 		return SUCCESS;
 	}
 	
@@ -113,6 +125,42 @@ public class VisitAction extends BaseAction{
 	public String saveIllintro() {
 		illintroService.update(illintro);
 		return SUCCESS;
+	}
+	
+	//Õº∆¨…œ¥´
+	@Action("upload")
+	public String uploader() {
+		try {
+			IOUtils.copy(new FileInputStream(file), new FileOutputStream(new File("C:/upload/",fileFileName)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return NONE;
+	}
+	
+	//º”‘ÿÕº∆¨
+	@Action("load")
+	public String load() {
+		
+		try {
+			downloadFile("C:/upload/"+fileFileName, fileFileName, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return NONE;
+	}
+	
+	//œ¬‘ÿ∫Õ‘§¿¿Õº∆¨
+	@Action("download")
+	public String download() {
+		
+		try {
+			downloadFile("C:/upload", fileFileName, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return NONE;
 	}
 	
 	
@@ -179,6 +227,38 @@ public class VisitAction extends BaseAction{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public String getFileFileName() {
+		return fileFileName;
+	}
+
+	public void setFileFileName(String fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+
+	public String getFileContentType() {
+		return fileContentType;
+	}
+
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+
+	public Imgs getImgs() {
+		return imgs;
+	}
+
+	public void setImgs(Imgs imgs) {
+		this.imgs = imgs;
 	}
 
 	

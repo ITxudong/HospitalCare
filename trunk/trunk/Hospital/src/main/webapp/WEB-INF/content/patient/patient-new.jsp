@@ -34,13 +34,13 @@
             <form action="/patient/savePatient.action" method="post">
               <label>姓名</label>
               <input type="text" name="patient.name">
-              <label>性别</label>
-              <select name="patient.sex" id="">
-                <option value="男">男</option>
-                <option value="女">女</option>
-              </select>
               <label>身份证号</label>
               <input type="text" name="patient.peopleid" id="pid">
+              <label>性别</label>
+              <select name="patient.sex" id="sex" value="">
+                <option id="men" value="男">男</option>
+                <option value="女">女</option>
+              </select>
               <label>年龄</label>
               <input type="text" name="patient.age" id="age">
               <label>电话</label>
@@ -94,7 +94,21 @@
 	      });
 
 	      $("#pid").blur(function(){
-	    	  $("#age").val();
+	    	  var pid =  $("#pid").val();
+	    	  //var sex = $("#sex").attr("value");
+	    	  $.ajax({
+	    		  url:"/autoJson.action",
+	    		  data:{"pid":pid},
+	    		  dataType:"json",
+	    		  type:"get",
+	    		  
+	    		  success:function(json) {
+	    			  //$("#sex").attr("value",json.sex);
+	    			  //$("#men").replaceWith('<option value=""+json.sex+"">"+json.sex+"</option>');
+	    			  $("#age").val(json.age);
+	    		  }
+	    	  });
+	
 	      });
 	      
 	      

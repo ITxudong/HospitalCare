@@ -161,7 +161,11 @@
 	                    <td>影像资料</td>
 	                  </tr>
 	                  <tr>
-	                    <td></td>
+	                    <td>
+	                    <c:forEach items="${v.imgs }" var="i">
+	                    <a href="/visit/download.action?fileFileName=${i.picname }"><img src="/visit/load.action?fileFileName=${i.picname }" alt="" width="190px"></a>
+	                    </c:forEach>
+	                    </td>
 	                  </tr>
 	               </table>
                  </div>

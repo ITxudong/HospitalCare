@@ -75,10 +75,10 @@ public class DiseaseAction extends BaseAction{
 		return SUCCESS;
 	}
 	
-	@Action(value="delDept",results={
+	@Action(value="del",results={
 			@Result(name="success",type="redirectAction",params={"namespace","/disease","actionName","diseaseSet"})
 	})
-	public String delDept() {
+	public String del() {
 		diseaseService.del(id);
 		return SUCCESS;
 	}
