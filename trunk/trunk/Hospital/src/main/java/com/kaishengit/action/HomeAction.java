@@ -29,11 +29,9 @@ public class HomeAction extends BaseAction{
 	private Account account;
 	
 	private String id;
-	private Boolean isa;
 	
 	@Action("home")
 	public String execute() {
-		isa = isAdmin();
 		announces = announceService.findAll();
 		return SUCCESS;
 	}
@@ -86,15 +84,5 @@ public class HomeAction extends BaseAction{
 		this.announces = announces;
 	}
 
-	public Boolean getIsa() {
-		return isa;
-	}
-
-	public void setIsa(Boolean isa) {
-		this.isa = isa;
-	}
-
-	
-	
 	
 }

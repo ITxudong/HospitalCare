@@ -31,7 +31,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/patient/savePatient.action" method="post">
+            <form action="/patient/savePatient.action" method="post" id="patientForm">
               <label>姓名</label>
               <input type="text" name="patient.name">
               <label>身份证号</label>
@@ -77,6 +77,8 @@
   <script src="/statics/js/bootstrap.min.js"></script>
   <script src="/statics/js/simditor/scripts/js/simditor-all.min.js"></script>
   <script src="/statics/js/select2/select2.min.js"></script>
+  <script src="/statics/js/jquery.validate.min.js"></script>
+  
   <script>
     $(function(){
 
@@ -111,7 +113,48 @@
 	
 	      });
 	      
-	      
+	      $("#patientForm").validate({
+				errorElement:"span",
+				errorClass:"text-error",
+				rules:{
+					"patient.name":{
+						required:true
+					},
+					"patient.peopleid":{
+						required:true,
+						rangelength:[18,18]
+					},
+					"patient.tel":{
+						required:true,
+						rangelength:[11,11]
+					},
+					"patient.insurance.id":{
+						required:true
+					},
+					"patient.address":{
+						required:true
+					}
+				},
+				messages:{
+					"patient.name":{
+						required:" 请输入患者姓名"
+					},
+					"patient.peopleid":{
+						required:" 请输入身份证号",
+						rangelength:"身份证为18位"
+					},
+					"patient.tel":{
+						required:" 请输入联系电话",
+						rangelength:"联系电话为11位"
+					},
+					"patient.insurance.id":{
+						required:" 请选择医保类型"
+					},
+					"patient.address":{
+						required:" 请输入患者住址"
+					}
+				}
+			});
 	      
 	      
     });

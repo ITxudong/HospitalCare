@@ -26,6 +26,16 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <!-- 过滤器配置 -->
+  <filter>
+	<filter-name>myfilter</filter-name>
+	<filter-class>com.kaishengit.action.filter.FlashScopeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	  <filter-name>myfilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <!-- Struts2控制器 -->
   <filter>
   	<filter-name>Struts2</filter-name>
@@ -46,6 +56,12 @@
   	<param-name>contextConfigLocation</param-name>
   	<param-value>classpath:applicationContext*.xml</param-value>
   </context-param>
+  
+  <!-- 配置欢迎页 -->
+  
+  <welcome-file-list>
+       <welcome-file>/WEB-INF/content/index-success.jsp</welcome-file>
+   </welcome-file-list>
   
   
   

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +13,6 @@ public class Dept extends IdEntity{
 	private String name;
 	private String principal;
 	@OneToMany(mappedBy="dept")
-	@OrderBy("id desc")
 	private List<Disease> diseases;
 	
 	public String getName() {

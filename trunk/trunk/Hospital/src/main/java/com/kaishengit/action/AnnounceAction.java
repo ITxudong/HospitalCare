@@ -37,7 +37,8 @@ public class AnnounceAction extends BaseAction{
 			@Result(name="success",type="redirectAction",params={"namespace","/","actionName","home","id","${id}"})
 	})
 	public String pub() {
-		announceService.save(announce);
+		announceService.save(announce,getCurrAccount());
+		getHttpRequest().setAttribute("flash._message", "公告发布成功");
 		return SUCCESS;
 	}
 	

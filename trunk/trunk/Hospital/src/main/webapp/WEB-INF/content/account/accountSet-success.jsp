@@ -29,6 +29,9 @@
           </div>
           <div class="box-body">
             <table class="table">
+              <c:if test="${not empty _message }">
+					<div class="alert alert-info">${_message }<button type="button" class="close" data-dismiss="alert">&times;</button></div>
+			  </c:if>
               <thead>
                 <tr>
                   <th width="200">账户名称</th>
@@ -48,16 +51,18 @@
 	                 <td>${a.lastTime }</td>
 	                 <td>${a.lastIp }</td>
 	                 <td>
-	                   <a href="/account/update.action?id=${a.id }">修改</a>
-					   <c:choose>
-					   		<c:when test="${a.enable == true }">
-					  			<a href="/account/enable.action?id=${a.id }">禁用</a>
-					   		</c:when>
-					   		<c:otherwise>
-					  			<a href="/account/enable.action?id=${a.id }">启用</a>
-					   		</c:otherwise>
-					   </c:choose>
-	                   <a href="/account/del.action?id=${a.id }">删除</a>
+	                 	<c:if test="${a.type != '管理员' }">
+	                 	   <a href="/account/update.action?id=${a.id }">修改</a>
+						   <c:choose>
+						   		<c:when test="${a.enable == true }">
+						  			<a href="/account/enable.action?id=${a.id }">禁用</a>
+						   		</c:when>
+						   		<c:otherwise>
+						  			<a href="/account/enable.action?id=${a.id }">启用</a>
+						   		</c:otherwise>
+						   </c:choose>
+		                   <a href="/account/del.action?id=${a.id }">删除</a>
+	                 	</c:if>
 	                 </td>
                   </tr>
                 </c:forEach>

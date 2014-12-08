@@ -55,6 +55,7 @@ public class BaseDao<T,PK extends Serializable> {
 	public List<T> findAll(List<PropertyFilter> filterList) {
 		Criteria cri = createCriteria();
 		buildCondition(cri,filterList);
+		cri.addOrder(Order.desc("createtime"));
 		return cri.list();
 	}
 	

@@ -11,6 +11,36 @@
 	
 	<package name="basePackage" extends="convention-default,json-default" abstract="true">
 	
+		<!-- 添加拦截器 -->
+		<interceptors>
+			<!-- 定义拦截器 -->
+			<interceptor name="login" class="com.kaishengit.interceptor.LoginInterceptor"></interceptor> 
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="myInterceptor">
+				<!-- 拦截器引用 -->
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+
+				<interceptor-ref name="login">
+					<!-- 拦截器中的配置 -->
+					<param name="namespace">/</param>
+					<param name="actionNames">index,login</param>
+					<param name="sessionName">currAccount</param>
+				</interceptor-ref>
+				
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 修改默认拦截器引用 -->
+		<default-interceptor-ref name="myInterceptor"></default-interceptor-ref>
+		
+		<!-- 全局结果 -->
+		<global-results>
+			<result name="login" type="redirectAction">
+				<param name="actionName">index</param>
+				<param name="namespace">/</param>
+			</result>
+		</global-results>		
+		
 	</package>
 	
 </struts>

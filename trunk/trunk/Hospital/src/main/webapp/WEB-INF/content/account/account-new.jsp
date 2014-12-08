@@ -27,7 +27,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/account/saveAccount.action" method="post">
+            <form action="/account/saveAccount.action" method="post" id="newAccount">
               <label>员工姓名</label>
               <input type="text" id="name" name="account.realName">
               <label>账号 <span class="muted">(用于登录系统)</span></label>
@@ -55,9 +55,54 @@
 		</div>
 	</div>
 	
-	
 	<script src="/statics/js/jquery-1.9.1-min.js"></script>
 	<script src="/statics/js/bootstrap.min.js"></script>
+	<script src="/statics/js/jquery.validate.min.js"></script>
+	
+	<script>
+	
+		$(function(){
+			
+			$("#name").blur(function(){
+				
+				var name = $("#name").val();
+				
+				$.ajax({
+					url:"/pinyinJson.action",
+					data:{"realName":name},
+					dataType:"json",
+					type:"get",
+					success:function(json) {
+						$("#account").val(json.pinyin);
+					}
+				});
+				
+			});
+			
+			$("#newAccount").validate({
+				errorElement:"span",
+				errorClass:"text-error",
+				rules:{
+					"account.realName":{
+						required:true
+					},
+					"account.tel":{
+						required:true
+					}
+				},
+				messages:{
+					"account.realName":{
+						required:"请输入姓名"
+					},
+					"account.tel":{
+						required:"请输入联系电话"
+					}
+				}
+			});
+			
+		});
+	
+	</script>
 	
 </body>
 </html>

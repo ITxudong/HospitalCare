@@ -45,8 +45,39 @@ public class AccountAction extends BaseAction{
 	})
 	public String saveAccount() {
 		accountService.save(account);
+		getHttpRequest().setAttribute("flash._message","添加账户成功");
 		return SUCCESS;
 	}
+	
+	@Action(value="updateAccount",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
+	})
+	public String updateAccount() {
+		accountService.update(account);
+		getHttpRequest().setAttribute("flash._message","账户修改成功");
+		return SUCCESS;
+	}
+	
+	@Action(value="del",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
+	})
+	public String del() {
+		accountService.del(id);
+		getHttpRequest().setAttribute("flash._message","添加删除成功");
+		return SUCCESS;
+	}
+	
+	@Action(value="enable",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
+	})
+	public String enable() {
+		accountService.enable(id);
+		getHttpRequest().setAttribute("flash._message","添加禁用成功");
+		return SUCCESS;
+	}
+	
+	
+	
 	
 	//perAccount settings
 	@Action("perSet")
@@ -56,10 +87,11 @@ public class AccountAction extends BaseAction{
 	}
 	
 	@Action(value="savePerset",results={
-			@Result(name="success",type="redirectAction",params={"namespace","/","actionName","home"})
+			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","perSet","id","${account.id}"})
 	})
 	public String savePerset() {
 		accountService.update(account);
+		getHttpRequest().setAttribute("flash._message","个人信息修改成功");
 		return SUCCESS;
 	}
 
@@ -70,33 +102,6 @@ public class AccountAction extends BaseAction{
 		account = accountService.findById(id);
 		return SUCCESS;
 	}
-	
-	@Action(value="updateAccount",results={
-			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
-	})
-	public String updateAccount() {
-		
-		accountService.update(account);
-		return SUCCESS;
-	}
-	
-	@Action(value="del",results={
-			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
-	})
-	public String del() {
-		accountService.del(id);
-		return SUCCESS;
-	}
-	
-	@Action(value="enable",results={
-			@Result(name="success",type="redirectAction",params={"namespace","/account","actionName","accountSet"})
-	})
-	public String enable() {
-		accountService.enable(id);
-		return SUCCESS;
-	}
-	
-	
 	
 	//get set
 	

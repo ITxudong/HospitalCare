@@ -1,11 +1,8 @@
 package com.kaishengit.pojo;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -29,8 +26,8 @@ public class Patient extends IdEntity{
 	@ManyToOne
 	@JoinColumn(name="insuranceid")
 	private Insurance insurance;
-	@OneToMany(mappedBy="patient")
-	private List<Illintro> illintros;
+	//@OneToMany(mappedBy="patient")
+	//private List<Illintro> illintros;
 	
 	public String getName() {
 		return name;
@@ -98,11 +95,11 @@ public class Patient extends IdEntity{
 	public void setState(String state) {
 		this.state = state;
 	}
-	public List<Illintro> getIllintros() {
+	/*public List<Illintro> getIllintros() {
 		return illintros;
 	}
 	public void setIllintros(List<Illintro> illintros) {
 		this.illintros = illintros;
-	}
+	}*/
 	
 }

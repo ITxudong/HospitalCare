@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,6 +31,9 @@
               <input type="hidden" name="account.id" value="${account.id }"/>
               <input type="hidden" name="account.realName" value="${account.realName }"/>
               <input type="hidden" name="account.type" value="${account.type }"/>
+              <c:if test="${not empty _message }">
+					<div class="alert alert-info">${_message }<button type="button" class="close" data-dismiss="alert">&times;</button></div>
+			  </c:if>
               <label>姓名</label>
               <input type="text" id="name" value="${account.realName }" name="account.realName" disabled/>
               <label>账号 <span class="muted">(用于登录系统)</span></label>

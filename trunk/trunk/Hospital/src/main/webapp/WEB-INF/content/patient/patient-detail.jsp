@@ -24,7 +24,7 @@
           <div class="box-header">
             <span class="title">
               <i class="fa fa-info"></i>
-              <a href="patient-list.html"> 患者列表</a>  /  患者基本信息
+              <a href="/patient/patientlist.action"> 患者列表</a>  /  患者基本信息
             </span>
             <ul class="unstyled inline pull-right">
               <li><a href="/patient/update.action?id=${param.id }"><i class="fa fa-edit"></i> 修改</a></li>
@@ -90,7 +90,7 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${patient.illintros }" var="ill">
+                <c:forEach items="${illintros }" var="ill">
                 <tr>
                   <td>${ill.createtime }</td>
                   <td>${ill.dept.name }</td>

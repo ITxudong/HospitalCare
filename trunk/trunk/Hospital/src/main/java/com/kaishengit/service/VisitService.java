@@ -78,15 +78,35 @@ public class VisitService {
 
 	public void save(Visit visit, Imgs imgs) {
 		
-		String picname = imgs.getPicname();
-		String[] img = picname.split(", ");
-		
-		for (int i = 0; i < img.length; i++) {
-			Imgs im = new Imgs();
-			im.setPicname(img[i]);
-			im.setVisit(visit);
-			imgsDao.save(im);
+		if(imgs != null) {
+			String picname = imgs.getPicname();
+			String[] img = picname.split(", ");
+			
+			for (int i = 0; i < img.length; i++) {
+				Imgs im = new Imgs();
+				im.setPicname(img[i]);
+				im.setVisit(visit);
+				imgsDao.save(im);
+			}
 		}
+		
+	}
+
+	public void delVisit(String id) {
+		visitDao.del(id);
+	}
+
+	public void update(Visit visit) {
+		Visit v = visitDao.findById(visit.getId());
+		v.setSymptom(visit.getSymptom());
+		v.setYxcharacter(visit.getYxcharacter());
+		v.setFinalresult(visit.getFinalresult());
+		v.setCuremethod(visit.getCuremethod());
+		visitDao.save(v);
+	}
+
+	public void delImg(String imgid) {
+		imgsDao.del(imgid);
 	}
 
 }

@@ -35,6 +35,7 @@ public class EmailService {
 			ToAccount ta = new ToAccount();
 			ta.setEmail(email);
 			ta.setAccount(acc);
+			ta.setDone(false);
 			toAccountDao.save(ta);
 		}
 		
@@ -57,5 +58,17 @@ public class EmailService {
 		return emailDao.findListByProperty("account.id", currAccount.getId());
 	}
 
+	public List<ToAccount> findDoneByAccount(Account account){
+		return toAccountDao.findListByPropertyAndState("account.id", account.getId(),"done",true);
+	}
+
+	public List<ToAccount> findUnDoneByAccount(Account account){
+		return toAccountDao.findListByPropertyAndState("account.id", account.getId(),"done",false);
+	}
+
+	public void ride(String tid) {
+		ToAccount ta = toAccountDao.findById(tid);
+		ta.setDone(true);
+	}
 	
 }

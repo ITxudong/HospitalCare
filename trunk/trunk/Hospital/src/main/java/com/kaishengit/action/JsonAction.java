@@ -23,6 +23,7 @@ import com.kaishengit.service.IllintroService;
 import com.kaishengit.service.PatientService;
 import com.kaishengit.util.AutoAgeSex;
 import com.kaishengit.util.Circulate;
+import com.kaishengit.util.PinYinUtil;
 import com.kaishengit.util.PropertyFilter;
 
 @Namespace("/")
@@ -48,6 +49,8 @@ public class JsonAction extends BaseAction{
 	private String name;
 	private String query;
 	private String pid;
+	private String realName;
+	
 	
 	//patient 基本信息说
 	@Action(value="visitJson",results={
@@ -58,8 +61,10 @@ public class JsonAction extends BaseAction{
 		
 		name = getHttpRequest().getParameter("patientName");
 		patient = patientService.findByName(name);
+		System.out.println("1");
 		if(patient != null) {
 			try {
+				System.out.println("2");
 				PrintWriter out = getHttpResponse().getWriter();
 				Map<String ,Object> result = new HashMap<String ,Object>();
 				result.put("state", "success");
@@ -179,6 +184,24 @@ public class JsonAction extends BaseAction{
 		return NONE;
 	}
 	
+	//新建账户是把用户名转换成拼音，放回拼音的json
+	@Action(value="pinyinJson",results={
+			@Result(name="none",type="json")
+	})
+	public String toPinyin() {
+		String pinyin = PinYinUtil.chineseToPinYin(realName);
+		
+		Map<String ,Object> map = new HashMap<String ,Object>();
+		map.put("pinyin", pinyin);
+		
+		try {
+			toJson(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return NONE;
+	}
+	
 	
 	
 	
@@ -246,6 +269,14 @@ public class JsonAction extends BaseAction{
 
 	public void setPid(String pid) {
 		this.pid = pid;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 	
 	

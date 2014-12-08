@@ -23,8 +23,9 @@ public class AnnounceService {
 	@Inject
 	private ViewcountDao viewcountDao;
 	
-	public void save(Announce announce) {
+	public void save(Announce announce, Account account) {
 		announce.setCreatetime(DateTime.now().toString("yyyy-MM-dd HH:mm:ss"));
+		announce.setAccount(account);
 		announceDao.save(announce);
 	}
 
@@ -38,8 +39,9 @@ public class AnnounceService {
 
 	public void saveViewcount(Account currAccount ,Announce announce) {
 		if(!currAccount.getId().equals(announce.getAccount().getId())) {
-			Viewcount co = viewcountDao.findEntityByProperty("account.id", currAccount.getId());
+			Viewcount co = viewcountDao.findEntityByAnnounceAndAccount("account.id", currAccount.getId(),"announce.id",announce.getId());
 			if(co == null) {
+				System.out.println("save");
 				Viewcount count = new Viewcount();
 				count.setAccount(currAccount);
 				count.setAnnounce(announce);

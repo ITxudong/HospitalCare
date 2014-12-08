@@ -24,11 +24,11 @@
           <div class="box-header">
             <span class="title">
               <i class="fa fa-info"></i>
-              <a href="patient-list.html"> 患者列表</a>  /  患者基本信息
+              <a href="/patient/patientlist.action"> 患者列表</a>  /  患者基本信息
             </span>
             <ul class="unstyled inline pull-right">
-              <li><a href="new-patient.html"><i class="fa fa-file-word-o"></i> 导出</a></li>
-              <li><a href="new-patient.html"><i class="fa fa-smile-o"></i> 出院</a></li>
+              <li><a href="#"><i class="fa fa-file-word-o"></i> 导出</a></li>
+              <li><a href="#"><i class="fa fa-smile-o"></i> 出院</a></li>
             </ul>
           </div>
           <div class="box-body">
@@ -127,8 +127,8 @@
               <div class="box-header">
                 <span class="title"><i class="fa fa-calendar"></i> ${v.createtime }</span>
                 <ul class="unstyled inline pull-right">
-                  <li><a href="/visit/updateVisit.action?id=${v.id }"><i class="fa fa-edit"></i> 修改</a></li>
-                  <li><a href="/visit/delVisit.action?id=${v.id }"><i class="fa fa-times"></i> 删除</a></li>
+                  <li><a href="/visit/updateVisit.action?id=${v.id }&illintroid=${illintro.id}"><i class="fa fa-edit"></i> 修改</a></li>
+                  <li><a href="/visit/delVisit.action?id=${v.id }&illintroid=${illintro.id}"><i class="fa fa-times"></i> 删除</a></li>
                 </ul>
               </div>
               	 <div class="box-body">
