@@ -54,7 +54,17 @@ public class VisitAction extends BaseAction{
 	private File file; 
 	private String fileFileName;
 	private String fileContentType;
+	private String illintroid;
+	private String imgid;
 	
+	public String getImgid() {
+		return imgid;
+	}
+
+	public void setImgid(String imgid) {
+		this.imgid = imgid;
+	}
+
 	@Action(value="visitlist",results={
 			@Result(name="success",location="/WEB-INF/content/visit/visit-list.jsp")
 	})
@@ -92,6 +102,7 @@ public class VisitAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	//新建就诊记录
 	@Action(value="newReply",results={
 			@Result(name="success",location="/WEB-INF/content/visit/new-reply.jsp")
 	})
@@ -105,6 +116,7 @@ public class VisitAction extends BaseAction{
 	})
 	public String saveReply() {
 		visitService.save(illintro,visit,id);
+		visitService.save(visit,imgs);
 		return SUCCESS;
 	}
 	
@@ -126,6 +138,45 @@ public class VisitAction extends BaseAction{
 		illintroService.update(illintro);
 		return SUCCESS;
 	}
+	
+	//就诊记录的修改和删除
+	@Action(value="delVisit",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitDetail","id","${illintroid}"})
+	})
+	public String delVisit() {
+		illintro = illintroService.findById(illintroid);
+		visitService.delVisit(id);
+		return SUCCESS;
+	}
+	
+	@Action(value="updateVisit",results={
+			@Result(name="success",location="/WEB-INF/content/visit/visit-update.jsp")
+	})
+	public String update() {
+		visit = visitService.findById(id);
+		return SUCCESS;
+	}
+	
+	@Action(value="saveUpdate",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","visitDetail","id","${id}"})
+	})
+	public String saveUpdate() {
+		visitService.update(visit);
+		visitService.save(visit,imgs);
+		return SUCCESS;
+	}
+	
+	//图片删除
+	@Action(value="delImg",results={
+			@Result(name="success",type="redirectAction",params={"namespace","/visit","actionName","updateVisit","id","${id}","illintroid","${illintroid}"})
+	})
+	public String delImg() {
+		visitService.delImg(imgid);
+		return SUCCESS;
+	}
+	
+	
+	
 	
 	//图片上传
 	@Action("upload")
@@ -259,6 +310,14 @@ public class VisitAction extends BaseAction{
 
 	public void setImgs(Imgs imgs) {
 		this.imgs = imgs;
+	}
+
+	public String getIllintroid() {
+		return illintroid;
+	}
+
+	public void setIllintroid(String illintroid) {
+		this.illintroid = illintroid;
 	}
 
 	

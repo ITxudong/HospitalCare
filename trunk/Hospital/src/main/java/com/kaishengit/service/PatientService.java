@@ -31,7 +31,17 @@ public class PatientService {
 	}
 
 	public void update(Patient patient) {
-		patientDao.save(patient);
+		Patient p = findById(patient.getId());
+		p.setName(patient.getName());
+		p.setSex(patient.getSex());
+		p.setPeopleid(patient.getPeopleid());
+		p.setAge(patient.getAge());
+		p.setTel(patient.getTel());
+		p.setInsurance(patient.getInsurance());
+		p.setAddress(patient.getAddress());
+		p.setAllergic(patient.getAllergic());
+		p.setNote(patient.getNote());
+		patientDao.save(p);
 	}
 	
 	public Patient findById(String id) {

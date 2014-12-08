@@ -56,9 +56,9 @@
               <label>住址</label>
               <input type="text" name="patient.address" value="${patient.address }">
               <label>过敏史</label>
-              <textarea  class="editor1" style="height:50px" name="patient.allergic"></textarea>
+              <textarea  class="editor1" style="height:50px" name="patient.allergic">${patient.allergic }</textarea>
               <label>备注</label>
-              <textarea  class="editor2" name="patient.note"></textarea>
+              <textarea  class="editor2" name="patient.note">${patient.note }</textarea>
               <div class="form-actions">
                 <button class="button button-flat-action button-pill">修改</button>
               </div>

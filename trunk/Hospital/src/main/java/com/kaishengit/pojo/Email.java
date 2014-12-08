@@ -21,7 +21,15 @@ public class Email extends IdEntity{
 	private Account account;
 	@OneToMany(mappedBy="email")
 	private List<ToAccount> toAccounts;
+	private String createtime;
 	
+	
+	public String getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
 	public String getTitle() {
 		return title;
 	}

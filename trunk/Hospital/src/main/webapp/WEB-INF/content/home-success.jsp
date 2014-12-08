@@ -38,7 +38,9 @@
 	<jsp:include page="include/side.jsp">
 		<jsp:param value="home" name="menu"/>
 	</jsp:include>
-	
+	<c:if test="${not empty _message }">
+		<div class="alert alert-info">${_message }<button type="button" class="close" data-dismiss="alert">&times;</button></div>
+    </c:if>
 	<div class="email">	
 		<div class="left">
 			<table>
@@ -57,7 +59,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<c:if test="${isa == 'true' }">
+			<c:if test="${sessionScope.currAccount.type == '管理员' }">
 			<div class="btn btn-success"><a href="/announce/newAnnounce.action?id=${sessionScope.currAccount.id }">发布新公告</a></div>	
 			</c:if>
 		</div>

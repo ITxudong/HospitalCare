@@ -47,38 +47,8 @@
   <script>
     $(function(){
 
-    	 /* $(window).load(function(){
-			$.ajax({
-				url:"/chartJson.action",
-				type:"get",
-				success:function(json){
-					
-				  var data = {
-				     labels: ["January", "February", "March", "April", "May", "June", "July"],
-				     datasets: [
-				        {
-		                  fillColor: "#40d47e",
-		                  strokeColor: "rgba(220,220,220,0.8)",
-		                  highlightFill: "rgba(220,220,220,0.75)",
-		                  highlightStroke: "rgba(220,220,220,1)",
-		                  data: [65, 59, 80, 81, 56, 55, 140]
-				        }
-				      ]
-				  };
-			      var ctx = $("#myChart").get(0).getContext("2d");
-			      new Chart(ctx).Bar(data);
-					
-				},
-				error:function(){
-					alert("获取任务数据失败");
-				}
-			});
-		}); */
-		 
-    	
-    	
         //初始化值
-        var data = {
+        /* var data = {
           labels: ["肺结核", "骨折", "沙眼", "流感", "肿瘤", "腹泻", "小儿麻痹"],
           datasets: [
               {
@@ -92,7 +62,7 @@
         };
         var ctx = $("#myChart").get(0).getContext("2d");
         new Chart(ctx).Bar(data);
-
+ */
 
        $("#rangepicker").daterangepicker(
           {

@@ -22,7 +22,7 @@ public class AccountService {
 
 	public Account login(Account account,HttpServletRequest request) {
 		Account acc = accountDao.findEntityByProperty("accountName", account.getAccountName());
-		if(acc!= null && acc.getPwd().equals(account.getPwd())) {
+		if(acc!= null && acc.getPwd().equals(account.getPwd()) && acc.getEnable()) {
 			//设置最后登录时间和最后登录IP
 			String lastIp = request.getRemoteAddr();
 			String time = DateTime.now().toString("yyyy-MM-dd HH:mm:ss");
@@ -46,8 +46,6 @@ public class AccountService {
 		acc.setAccountName(account.getAccountName());
 		acc.setPwd(account.getPwd());
 		acc.setTel(account.getTel());
-		acc.setType(account.getType());
-		acc.setEnable(account.getEnable());
 		accountDao.save(acc);
 	}
 

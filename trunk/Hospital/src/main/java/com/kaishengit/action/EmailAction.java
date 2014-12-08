@@ -27,11 +27,13 @@ public class EmailAction extends BaseAction{
 	
 	private List<Account> accounts;
 	private List<Email> emails;
-	private List<ToAccount> toAccounts;
+	private List<ToAccount> toAccountsDone;
+	private List<ToAccount> toAccountsUnDone;
 	
 	private Email email;
 	private ToAccount toAccount;
 	private String id;
+	private String tid;
 	
 	@Action(value="newEmail",results={
 			@Result(name="success",location="/WEB-INF/content/email/email-new.jsp")
@@ -55,16 +57,26 @@ public class EmailAction extends BaseAction{
 	@Action(value="recieveEmail",results={
 			@Result(name="success",location="/WEB-INF/content/email/email-recieves.jsp")
 	})
-	public String recieveEmail() {
+	public String recieveEmail() throws Exception{
 		Account account = accountService.findById(id);
-		toAccounts = emailService.findByAccount(account);
+		toAccountsDone = emailService.findDoneByAccount(account);
+		toAccountsUnDone = emailService.findUnDoneByAccount(account);
 		return SUCCESS;
 	}
 	
-	@Action(value="detail",results={
+	@Action(value="recieveDetail",results={
 			@Result(name="success",location="/WEB-INF/content/email/email-detail.jsp")
 	})
-	public String detail() {
+	public String reDetail() {
+		emailService.ride(tid);
+		email = emailService.findById(id);
+		return SUCCESS;
+	}
+	
+	@Action(value="sendsDetail",results={
+			@Result(name="success",location="/WEB-INF/content/email/email-detail.jsp")
+	})
+	public String seDetail() {
 		email = emailService.findById(id);
 		return SUCCESS;
 	}
@@ -111,12 +123,20 @@ public class EmailAction extends BaseAction{
 		this.emails = emails;
 	}
 
-	public List<ToAccount> getToAccounts() {
-		return toAccounts;
+	public List<ToAccount> getToAccountsDone() {
+		return toAccountsDone;
 	}
 
-	public void setToAccounts(List<ToAccount> toAccounts) {
-		this.toAccounts = toAccounts;
+	public void setToAccountsDone(List<ToAccount> toAccountsDone) {
+		this.toAccountsDone = toAccountsDone;
+	}
+
+	public List<ToAccount> getToAccountsUnDone() {
+		return toAccountsUnDone;
+	}
+
+	public void setToAccountsUnDone(List<ToAccount> toAccountsUnDone) {
+		this.toAccountsUnDone = toAccountsUnDone;
 	}
 
 	public String getId() {
@@ -125,6 +145,14 @@ public class EmailAction extends BaseAction{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTid() {
+		return tid;
+	}
+
+	public void setTid(String tid) {
+		this.tid = tid;
 	}
 	
 	

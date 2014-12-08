@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kaishengit.dao.IllintroDao;
 import com.kaishengit.pojo.Disease;
 import com.kaishengit.pojo.Illintro;
+import com.kaishengit.pojo.Patient;
 import com.kaishengit.util.PropertyFilter;
 
 @Named
@@ -48,6 +49,10 @@ public class IllintroService {
 
 	public Long count(List<PropertyFilter> filterList, Disease dis) {
 		return illintroDao.countDisease(filterList,dis.getId());
+	}
+
+	public List<Illintro> findAllByPatientid(Patient patient) {
+		return illintroDao.findListByProperty("patient.id", patient.getId());
 	}
 
 }

@@ -11,6 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class ToAccount extends IdEntity{
 
+	private Boolean done;
 	@ManyToOne
 	@JoinColumn(name="emailid")
 	private Email email; 
@@ -29,6 +30,12 @@ public class ToAccount extends IdEntity{
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public Boolean getDone() {
+		return done;
+	}
+	public void setDone(Boolean done) {
+		this.done = done;
 	}
 	
 }

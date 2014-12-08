@@ -30,7 +30,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/disease/saveDisease.action" method="post">
+            <form action="/disease/saveDisease.action" method="post" id="diseaseForm">
               <label>疾病名称</label>
               <input type="text" name="disease.name">
               <label>所属科室</label>
@@ -58,12 +58,37 @@
   <script src="/statics/js/jquery-1.9.1-min.js"></script>
   <script src="/statics/js/bootstrap.min.js"></script>
   <script src="/statics/js/select2/select2.min.js"></script>
+  <script src="/statics/js/jquery.validate.min.js"></script>
+  
   <script>
     $(function(){
+    	
       $("#ks").select2({
         placeholder: "请选择科室",
         width:'220px'
       });
+      
+      $("#diseaseForm").validate({
+			errorElement:"span",
+			errorClass:"text-error",
+			rules:{
+				"disease.name":{
+					required:true
+				},
+				"disease.dept.id":{
+					required:true
+				}
+			},
+			messages:{
+				"disease.name":{
+					required:"请输入疾病名称"
+				},
+				"disease.dept.id":{
+					required:"请选择所属科室"
+				}
+			}
+		});
+      
     });
   </script>
 	

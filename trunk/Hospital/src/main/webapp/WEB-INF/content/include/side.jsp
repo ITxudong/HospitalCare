@@ -6,12 +6,12 @@
 	 	<div class="navbar-inner">
 	   		<a class="brand" href="#">凯盛医疗</a>
 	  			<ul class="nav">
-	     			<li class="${param.menu == 'home' ? 'active' : '' }"><a href="/home.action"><i class="fa fa-home"></i> 首页</a></li>
+	     			<li class="${param.menu == 'home' ? 'active' : '' }"><a href="/home.action?id=${sessionScope.currAccount.id }"><i class="fa fa-home"></i> 首页</a></li>
 	     			<li class="${param.menu == 'patient' ? 'active' : '' }"><a href="/patient/patientlist.action"><i class="fa fa-building"></i> 病人档案</a></li>
 	     			<li class="${param.menu == 'visit' ? 'active' : '' }"><a href="/visit/visitlist.action"><i class="fa fa-stethoscope"></i>  就诊记录</a></li>
 	     			<li class="${param.menu == 'notify' ? 'active' : '' }"><a href="/notify/notifylist.action"><i class="fa fa-bell-o"></i> 复诊提醒</a></li>
 	           		<li class="${param.menu == 'chart' ? 'active' : '' }"><a href="/chart/chartlist.action"><i class="fa fa-bar-chart-o"></i> 数据统计</a></li>
-	     			<c:if test="${isa == 'true' }">
+	     			<c:if test="${sessionScope.currAccount.type == '管理员' }">
 	     			<li class="dropdown">
 	     				<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-cogs"></i> 系统设置 <b class="caret"></b></a>
 	     				<ul class="dropdown-menu">

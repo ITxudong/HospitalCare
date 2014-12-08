@@ -14,6 +14,10 @@
 </head>
 <body>
 	
+	<jsp:include page="../include/side.jsp">
+		<jsp:param value="home" name="menu"/>
+	</jsp:include>
+	
 	<div class="container-fluid">
 		<div class="row-fluid">
 		  <div class="span12">
@@ -26,7 +30,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/announce/pubAnnounce.action?id=${param.id }" method="post">
+            <form action="/announce/pubAnnounce.action?id=${param.id }" method="post" id="announceForm">
               <label>公告标题</label>
               <input type="text" name="announce.title" id="">
               <label>公告内容</label>
@@ -48,6 +52,8 @@
   <script src="/statics/js/bootstrap.min.js"></script>
   <script src="/statics/js/simditor/scripts/js/simditor-all.min.js"></script>
   <script src="/statics/js/select2/select2.min.js"></script>
+  <script src="/statics/js/jquery.validate.min.js"></script>
+  
   <script>
     $(function(){
 
@@ -55,6 +61,21 @@
 	        toolbar:['title','bold','italic','underline','strikethrough','ol','ul','blockquote','table','link','hr','indent','outdent'],
 	        textarea: $('.editor')
 	      });
+	      
+	      $("#announceForm").validate({
+				errorElement:"span",
+				errorClass:"text-error",
+				rules:{
+					"announce.title":{
+						required:true
+					}
+				},
+				messages:{
+					"announce.title":{
+						required:"请输入公告标题"
+					}
+				}
+			});
 	      
     });
   </script>

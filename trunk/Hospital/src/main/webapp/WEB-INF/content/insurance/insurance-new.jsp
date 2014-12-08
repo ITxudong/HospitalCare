@@ -27,7 +27,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/insurance/saveInsurance.action" method="post">
+            <form action="/insurance/saveInsurance.action" method="post" id="insurForm">
               <label>医保类型名称</label>
               <input type="text" name="insurance.name">
               <div class="form-actions">
@@ -46,6 +46,32 @@
 
 	<script src="/statics/js/jquery-1.9.1-min.js"></script>
 	<script src="/statics/js/bootstrap.min.js"></script>
+	<script src="/statics/js/jquery.validate.min.js"></script>
+	
+	<script>
+	
+		$(function(){
+			
+			$("#insurForm").validate({
+				errorElement:"span",
+				errorClass:"text-error",
+				rules:{
+					"insurance.name":{
+						required:true
+					}
+				},
+				messages:{
+					"insurance.name":{
+						required:"请输入医保类型名称"
+					}
+				}
+			});
+			
+			
+			
+		});	
+	
+	</script>
 	
 </body>
 </html>

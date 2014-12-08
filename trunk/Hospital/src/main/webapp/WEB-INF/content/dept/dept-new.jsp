@@ -27,7 +27,7 @@
             </span>
           </div>
           <div class="box-body form">
-            <form action="/dept/saveDept.action">
+            <form action="/dept/saveDept.action" method="post" id="deptForm">
               <label>科室名称</label>
               <input type="text" name="dept.name">
               <label>负责人</label>
@@ -48,7 +48,37 @@
 
 	<script src="/statics/js/jquery-1.9.1-min.js"></script>
 	<script src="/statics/js/bootstrap.min.js"></script>
+	<script src="/statics/js/jquery.validate.min.js"></script>
 	
+	<script>
+	
+	$(function(){
+		
+		$("#deptForm").validate({
+			errorElement:"span",
+			errorClass:"text-error",
+			rules:{
+				"dept.name":{
+					required:true
+				},
+				"dept.principal":{
+					required:true
+				}
+			},
+			messages:{
+				"dept.name":{
+					required:"请输入科室名称"
+				},
+				"dept.principal":{
+					required:"请输入科室负责人"
+				}
+			}
+		});
+		
+	});
+
+	
+	</script>
 	
 </body>
 </html>

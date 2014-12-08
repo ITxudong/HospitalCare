@@ -8,8 +8,10 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.kaishengit.pojo.Illintro;
 import com.kaishengit.pojo.Insurance;
 import com.kaishengit.pojo.Patient;
+import com.kaishengit.service.IllintroService;
 import com.kaishengit.service.InsuranceService;
 import com.kaishengit.service.PatientService;
 import com.kaishengit.util.PropertyFilter;
@@ -23,12 +25,15 @@ public class PatientAction extends BaseAction{
 	private PatientService patientService;
 	@Inject
 	private InsuranceService insuranceService;
+	@Inject
+	private IllintroService illintroService;
 	
 	private Patient patient;
 	private String id;
 	
 	private List<Insurance> insurances;
 	private List<Patient> list;
+	private List<Illintro> illintros;
 	
 	@Action(value="patientlist",results={
 			@Result(name="success",location="/WEB-INF/content/patient/patientlist.jsp")
@@ -36,6 +41,7 @@ public class PatientAction extends BaseAction{
 	public String patientlist() {
 		List<PropertyFilter> filterList = PropertyFilter.builderPropertyFilter(getHttpRequest());
 		list = patientService.search(filterList);
+		
 		return SUCCESS;
 	}
 	
@@ -60,6 +66,7 @@ public class PatientAction extends BaseAction{
 	})
 	public String patientDetail() {
 		patient = patientService.findById(id);
+		illintros = illintroService.findAllByPatientid(patient);
 		return SUCCESS;
 	}
 	
@@ -121,11 +128,14 @@ public class PatientAction extends BaseAction{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
-	
-	
-	
-	
+
+	public List<Illintro> getIllintros() {
+		return illintros;
+	}
+
+	public void setIllintros(List<Illintro> illintros) {
+		this.illintros = illintros;
+	}
+
 	
 }
